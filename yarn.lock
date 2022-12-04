@@ -1781,10 +1781,10 @@ electron-to-chromium@^1.4.251:
   resolved "https://registry.npmmirror.com/electron-to-chromium/-/electron-to-chromium-1.4.284.tgz#61046d1e4cab3a25238f6bf7413795270f125592"
   integrity sha512-M8WEXFuKXMYMVr45fo8mq0wUrrJHheiKZf6BArTKk9ZBYCKJEOU5H8cdWgDT+qCVZf7Na4lVUaZsA+h6uA9+PA==
 
-element-plus@^2.2.25:
-  version "2.2.25"
-  resolved "https://registry.npmmirror.com/element-plus/-/element-plus-2.2.25.tgz#ebf1e8a57300eb2d8ed337cf23ee5a566bebc402"
-  integrity sha512-HC8CWY31e6pPyBpgqI0QnWkBgs0vRzdYnEw3mpdM/NlKfp0PtNFX7NESQLomqoIulH5ftL09hjQmJNvZBQpthQ==
+element-plus@^2.2.26:
+  version "2.2.26"
+  resolved "https://registry.npmmirror.com/element-plus/-/element-plus-2.2.26.tgz#5e46aa5d8127786bb158713957f8a253b35bf019"
+  integrity sha512-O/rdY5m9DkclpVg8r3GynyqCunm7MxSR142xSsjrZA77bi7bcwA3SIy6SPEDqHi5R4KqgkGYgKSp4Q4e3irbYg==
   dependencies:
     "@ctrl/tinycolor" "^3.4.1"
     "@element-plus/icons-vue" "^2.0.6"
@@ -3675,6 +3675,11 @@ normalize-wheel-es@^1.2.0:
   version "1.2.0"
   resolved "https://registry.npmmirror.com/normalize-wheel-es/-/normalize-wheel-es-1.2.0.tgz#0fa2593d619f7245a541652619105ab076acf09e"
   integrity sha512-Wj7+EJQ8mSuXr2iWfnujrimU35R2W4FAErEyTmJoJ7ucwTn2hOUSsRehMb5RSYkxXGTM7Y9QpvPmp++w5ftoJw==
+
+normalize.css@^8.0.1:
+  version "8.0.1"
+  resolved "https://registry.npmmirror.com/normalize.css/-/normalize.css-8.0.1.tgz#9b98a208738b9cc2634caacbc42d131c97487bf3"
+  integrity sha512-qizSNPO93t1YUuUhP22btGOo3chcvDFqFaj2TRybP0DMxkHOCTYwp3n34fel4a31ORXy4m1Xq0Gyqpb5m33qIg==
 
 npm-run-path@^2.0.0:
   version "2.0.2"

@@ -15,27 +15,34 @@
   -webkit-text-size-adjust: 100%;
 }
 
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
 body {
-  display: flex;
-  place-items: center;
   min-width: 320px;
-  min-height: 100vh;
+  height: 100%;
   margin: 0;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
 #app {
   height: 100%;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
   }
 }
