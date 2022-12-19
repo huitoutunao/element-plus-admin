@@ -7,6 +7,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Home',
     component: Home,
   },
+  {
+    path: '/layout',
+    name: 'layout',
+    component: () => import('@/layout/IndexView.vue'),
+  },
 ]
 
 const router = createRouter({
