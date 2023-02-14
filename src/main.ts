@@ -5,7 +5,9 @@ import '@/assets/styles/index.scss'
 
 import App from '@/App.vue'
 import router from '@/router'
-import { createPinia } from 'pinia'
+import { setupStore } from '@/store'
 
 const app = createApp(App)
-app.use(router).use(createPinia()).mount('#app')
+setupStore(app)
+app.use(router)
+app.mount('#app')

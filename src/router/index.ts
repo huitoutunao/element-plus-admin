@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import Home from '@/views/home/HomeView.vue'
+import Home from '@/views/home/index-view.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -10,7 +10,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/layout',
     name: 'layout',
-    component: () => import('@/layout/IndexView.vue'),
+    component: () => import('@/layout/index-view.vue'),
   },
 ]
 
