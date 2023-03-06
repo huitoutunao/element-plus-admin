@@ -34,6 +34,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { ElMessage, ElLoading } from 'element-plus'
 import type { FormRules, FormInstance } from 'element-plus'
 
 const ruleFormRef = ref<FormInstance>()
@@ -62,13 +63,27 @@ const rules = ref<FormRules>({
 // 登录
 const onSignIn = (formEl: FormInstance | undefined) => {
   if (!formEl) return
-  formEl.validate((valid, fields) => {
-    console.log(valid)
-    console.log(fields)
+  const loading = ElLoading.service({
+    lock: true,
+    text: 'Loading',
+    background: 'rgba(0, 0, 0, 0.7)',
+  })
+  setTimeout(() => {
+    loading.close()
+  }, 2000)
+  formEl.validate((valid) => {
     if (valid) {
       // 登录成功
+      ElMessage({
+        message: '登录成功',
+        type: 'success',
+      })
     } else {
       // 登录失败
+      ElMessage({
+        message: '登录失败',
+        type: 'error',
+      })
     }
   })
 }
