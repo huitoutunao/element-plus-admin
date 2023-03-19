@@ -5,7 +5,7 @@
         <template #header>
           <div class="card-header">
             <div class="title">欢迎使用</div>
-            <div class="desc">Vite4.x + ElementPlus + Vue3.x + TypeScript</div>
+            <div class="desc">Vite4.x + Vue3.x + TypeScript + ElementPlus</div>
           </div>
         </template>
         <div class="card-form">
@@ -22,8 +22,10 @@
               />
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" @click="onSignIn(ruleFormRef)">登 录</el-button>
-              <el-button @click="onSignUp">注 册</el-button>
+              <el-button @click="onReset(ruleFormRef)">重 置</el-button>
+              <el-button type="primary" :loading="loading" @click="onSignIn(ruleFormRef)"
+                >登 录</el-button
+              >
             </el-form-item>
           </el-form>
         </div>
@@ -34,7 +36,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ElMessage, ElLoading } from 'element-plus'
+import { ElMessage } from 'element-plus'
 import type { FormRules, FormInstance } from 'element-plus'
 
 const ruleFormRef = ref<FormInstance>()
@@ -61,15 +63,12 @@ const rules = ref<FormRules>({
 })
 
 // 登录
+const loading = ref(false)
 const onSignIn = (formEl: FormInstance | undefined) => {
   if (!formEl) return
-  const loading = ElLoading.service({
-    lock: true,
-    text: 'Loading',
-    background: 'rgba(0, 0, 0, 0.7)',
-  })
+  loading.value = true
   setTimeout(() => {
-    loading.close()
+    loading.value = false
   }, 2000)
   formEl.validate((valid) => {
     if (valid) {
@@ -88,9 +87,10 @@ const onSignIn = (formEl: FormInstance | undefined) => {
   })
 }
 
-// 注册
-const onSignUp = () => {
-  console.log('注册')
+// 重置
+const onReset = (formEl: FormInstance | undefined) => {
+  if (!formEl) return
+  formEl.resetFields()
 }
 </script>
 
