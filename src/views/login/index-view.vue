@@ -9,23 +9,31 @@
           </div>
         </template>
         <div class="card-form">
-          <el-form ref="ruleFormRef" :model="form" :rules="rules" label-width="80px">
-            <el-form-item label="账 号" prop="username">
-              <el-input v-model="form.username" placeholder="请输入账号 admin" />
+          <el-form ref="ruleFormRef" :model="form" :rules="rules">
+            <el-form-item prop="username">
+              <el-input v-model="form.username" placeholder="请输入账号 admin">
+                <template #prefix>
+                  <el-icon><i-ep-user /></el-icon>
+                </template>
+              </el-input>
             </el-form-item>
-            <el-form-item label="密 码" prop="password">
+            <el-form-item prop="password">
               <el-input
                 v-model="form.password"
                 placeholder="请输入密码 123456"
                 type="password"
                 show-password
-              />
+              >
+                <template #prefix>
+                  <el-icon><i-ep-lock /></el-icon>
+                </template>
+              </el-input>
             </el-form-item>
             <el-form-item>
               <el-button @click="onReset(ruleFormRef)">重 置</el-button>
-              <el-button type="primary" :loading="loading" @click="onSignIn(ruleFormRef)"
-                >登 录</el-button
-              >
+              <el-button type="primary" :loading="loading" @click="onLogin(ruleFormRef)">
+                登 录
+              </el-button>
             </el-form-item>
           </el-form>
         </div>
@@ -36,15 +44,19 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import type { Ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import type { FormRules, FormInstance } from 'element-plus'
 
-const ruleFormRef = ref<FormInstance>()
-const form = ref({
+type ReqLoginForm = {
+  username: string
+  password: string
+}
+const form: Ref<ReqLoginForm> = ref({
   username: '',
   password: '',
 })
-
+const ruleFormRef = ref<FormInstance>()
 const rules = ref<FormRules>({
   username: [
     {
@@ -64,7 +76,7 @@ const rules = ref<FormRules>({
 
 // 登录
 const loading = ref(false)
-const onSignIn = (formEl: FormInstance | undefined) => {
+const onLogin = (formEl: FormInstance | undefined) => {
   if (!formEl) return
   loading.value = true
   setTimeout(() => {
@@ -104,7 +116,7 @@ const onReset = (formEl: FormInstance | undefined) => {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 480px;
+    width: 360px;
     transform: translate(-50%, -50%);
   }
 
