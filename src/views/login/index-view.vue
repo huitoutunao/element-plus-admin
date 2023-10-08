@@ -1,6 +1,6 @@
 <template>
-  <div class="wrapper">
-    <div class="content">
+  <div class="page">
+    <div class="container">
       <el-card class="box-card">
         <template #header>
           <div class="card-header">
@@ -13,7 +13,7 @@
             <el-form-item prop="username">
               <el-input v-model="form.username" placeholder="请输入账号 admin">
                 <template #prefix>
-                  <el-icon><i-ep-user /></el-icon>
+                  <el-icon><User /></el-icon>
                 </template>
               </el-input>
             </el-form-item>
@@ -25,15 +25,13 @@
                 show-password
               >
                 <template #prefix>
-                  <el-icon><i-ep-lock /></el-icon>
+                  <el-icon><Lock /></el-icon>
                 </template>
               </el-input>
             </el-form-item>
             <el-form-item>
-              <el-button @click="onReset(ruleFormRef)">重 置</el-button>
-              <el-button type="primary" :loading="loading" @click="onLogin(ruleFormRef)">
-                登 录
-              </el-button>
+              <el-button type="primary" :loading="loading" @click="onLogin">登 录</el-button>
+              <el-button @click="onReset">重 置</el-button>
             </el-form-item>
           </el-form>
         </div>
@@ -43,19 +41,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import type { Ref } from 'vue'
+import { ref, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
-import type { FormRules, FormInstance } from 'element-plus'
+import type { FormInstance, FormRules } from 'element-plus'
 
-type ReqLoginForm = {
-  username: string
-  password: string
-}
-const form: Ref<ReqLoginForm> = ref({
-  username: '',
-  password: '',
+defineOptions({
+  name: 'LoginView',
 })
+
 const ruleFormRef = ref<FormInstance>()
 const rules = ref<FormRules>({
   username: [
@@ -74,15 +67,21 @@ const rules = ref<FormRules>({
   ],
 })
 
-// 登录
+interface Form {
+  username: string
+  password: string
+}
+const form = reactive<Form>({
+  username: '',
+  password: '',
+})
+
 const loading = ref(false)
-const onLogin = (formEl: FormInstance | undefined) => {
-  if (!formEl) return
+const onLogin = () => {
   loading.value = true
-  setTimeout(() => {
+  ruleFormRef.value!.validate(valid => {
+    console.log(valid)
     loading.value = false
-  }, 2000)
-  formEl.validate((valid) => {
     if (valid) {
       // 登录成功
       ElMessage({
@@ -99,20 +98,18 @@ const onLogin = (formEl: FormInstance | undefined) => {
   })
 }
 
-// 重置
-const onReset = (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  formEl.resetFields()
+const onReset = () => {
+  ruleFormRef.value!.resetFields()
 }
 </script>
 
 <style lang="scss" scoped>
-.wrapper {
+.page {
   position: relative;
   min-height: 100vh;
   background-color: #efefef;
 
-  .content {
+  .container {
     position: absolute;
     top: 50%;
     left: 50%;

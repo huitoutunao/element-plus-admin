@@ -1,31 +1,9 @@
-// 参考文档：https://cz-git.qbb.sh/zh/guide/introduction
-// 参考文档：https://commitlint.js.org/#/reference-rules
-
-// const fs = require('fs')
-// const path = require('path')
-// const packages = fs.readdirSync(path.resolve(__dirname, 'packages'))
-const { execSync } = require('child_process')
-
-// precomputed scope
-const scopeComplete = execSync('git status --porcelain || true')
-  .toString()
-  .trim()
-  .split('\n')
-  .find((r) => ~r.indexOf('M  src'))
-  ?.replace(/(\/)/g, '%%')
-  ?.match(/src%%((\w|-)*)/)?.[1]
-
+// .commitlintrc.js
 /** @type {import('cz-git').UserConfig} */
 module.exports = {
-  ignores: [(commit) => commit.includes('init')],
-  extends: ['@commitlint/config-conventional'],
   rules: {
-    'body-leading-blank': [2, 'always'],
-    'footer-leading-blank': [1, 'always'],
-    'header-max-length': [2, 'always', 108],
-    'subject-empty': [2, 'never'],
-    'type-empty': [2, 'never'],
-    'subject-case': [0],
+    // @see: https://commitlint.js.org/#/reference-rules
+    'subject-case': [0, 'always'],
     'type-enum': [
       2,
       'always',
@@ -56,12 +34,6 @@ module.exports = {
       bd: 'build: bump dependencies',
       uc: 'chore: update config',
     },
-    defaultScope: scopeComplete,
-    customScopesAlign: !scopeComplete ? 'top-bottom' : 'bottom',
-    scopes: [
-      { value: 'app', name: 'app:       系统业务' },
-      { value: 'home', name: 'home:      首页相关' },
-    ],
     messages: {
       type: '选择你要提交的类型 :',
       scope: '选择一个提交范围（可选）:',
@@ -75,65 +47,66 @@ module.exports = {
       confirmCommit: '是否提交或修改commit ?',
     },
     types: [
-      { value: 'feat', name: 'feat:     ✨  新增功能 | A new feature', emoji: ':sparkles:' },
-      { value: 'fix', name: 'fix:      🐛  修复缺陷 | A bug fix', emoji: ':bug:' },
+      { value: 'feat', name: 'feat:  ✨  新增功能 | A new feature', emoji: ':sparkles:' },
+      { value: 'fix', name: 'fix:  🐛  修复缺陷 | A bug fix', emoji: ':bug:' },
       {
         value: 'docs',
-        name: 'docs:     📝  文档更新 | Documentation only changes',
+        name: 'docs:  📝  文档更新 | Documentation only changes',
         emoji: ':memo:',
       },
       {
         value: 'style',
-        name: 'style:    💄  代码格式 | Changes that do not affect the meaning of the code',
+        name: 'style:  💄  代码格式 | Changes that do not affect the meaning of the code',
         emoji: ':lipstick:',
       },
       {
         value: 'refactor',
-        name: 'refactor: ♻️   代码重构 | A code change that neither fixes a bug nor adds a feature',
+        name: 'refactor:  ♻️  代码重构 | A code change that neither fixes a bug nor adds a feature',
         emoji: ':recycle:',
       },
       {
         value: 'perf',
-        name: 'perf:     ⚡️  性能提升 | A code change that improves performance',
+        name: 'perf:  ⚡️  性能提升 | A code change that improves performance',
         emoji: ':zap:',
       },
       {
         value: 'test',
-        name: 'test:     ✅  测试相关 | Adding missing tests or correcting existing tests',
+        name: 'test:  ✅  测试相关 | Adding missing tests or correcting existing tests',
         emoji: ':white_check_mark:',
       },
       {
         value: 'build',
-        name: 'build:    📦️   构建相关 | Changes that affect the build system or external dependencies',
+        name: 'build:  📦️  构建相关 | Changes that affect the build system or external dependencies',
         emoji: ':package:',
       },
       {
         value: 'ci',
-        name: 'ci:       🎡  持续集成 | Changes to our CI configuration files and scripts',
+        name: 'ci:  🎡  持续集成 | Changes to our CI configuration files and scripts',
         emoji: ':ferris_wheel:',
       },
       {
         value: 'chore',
-        name: "chore:    🔨  其他修改 | Other changes that don't modify src or test files",
+        name: 'chore:  🔨  其他修改 | Other changes that do not modify src or test files',
         emoji: ':hammer:',
       },
-      {
-        value: 'revert',
-        name: 'revert:   ⏪️  回退代码 | Reverts a previous commit',
-        emoji: ':rewind:',
-      },
+      { value: 'revert', name: 'revert:  ⏪️  回退代码 | Revert to a commit', emoji: ':rewind:' },
     ],
     useEmoji: true,
     emojiAlign: 'center',
+    useAI: false,
+    aiNumber: 1,
     themeColorCode: '',
-    scopes: [],
+    scopes: [
+      { value: 'app', name: 'app:       系统业务' },
+      { value: 'home', name: 'home:      首页相关' },
+    ],
     allowCustomScopes: true,
     allowEmptyScopes: true,
     customScopesAlign: 'bottom',
     customScopesAlias: 'custom',
     emptyScopesAlias: 'empty',
     upperCaseSubject: false,
-    markBreakingChangeMode: true,
+    markBreakingChangeMode: false,
     allowBreakingChanges: ['feat', 'fix'],
     breaklineNumber: 100,
     breaklineChar: '|',
